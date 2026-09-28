@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0c1023" />
+  <meta name="description" content="Spin the wheel and make fair, random teams in a few clicks." />
+  <title>SpinSplit — Make teams with a spin</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"><span class="blob blob-one"></span><span class="blob blob-two"></span><span class="blob blob-three"></span></div>
+  <div class="site-shell">
+    <header class="site-header">
+      <a href="#" class="brand" id="brand" aria-label="SpinSplit home"><span class="brand-mark" aria-hidden="true"><span>✳</span></span><span>spin<span class="brand-accent">split</span><span class="brand-dot">.</span></span></a>
+      <div class="header-right"><span class="local-pill"><span class="status-dot"></span> 100% free · Works offline</span><button type="button" id="newSessionTop" class="header-reset" hidden>↻ New session</button></div>
+    </header>
+
+    <main>
+      <section class="hero" id="hero">
+        <div class="eyebrow"><span class="eyebrow-spark">✦</span> THE FUN WAY TO MAKE TEAMS <span class="eyebrow-spark">✦</span></div>
+        <h1>Great teams start<br />with a <span class="gradient-text">little spin.</span></h1>
+        <p>Enter your people. Pick your groups. Let the wheel do the rest.</p>
+        <button class="btn btn-primary hero-cta" id="startButton" type="button"><span>Let's get spinning</span><span class="btn-arrow">↗</span></button>
+        <div class="hero-chips" aria-label="Features"><span>✧ Totally random</span><span>◉ Perfectly balanced</span><span>♡ No sign up</span></div>
+        <div class="hero-preview" aria-hidden="true"><div class="preview-wheel"><span class="preview-wheel-label">YOU'RE<br />UP!</span></div><div class="preview-card preview-card-1">🎉 Team 01 <span>Alex · Sam · Taylor</span></div><div class="preview-card preview-card-2">✨ Team 02 <span>Jordan · Casey · Jamie</span></div></div>
+      </section>
+
+      <section class="workspace" id="workspace" hidden>
+        <nav class="steps" aria-label="Setup progress"><span class="step is-active" data-step="1"><span class="step-number">01</span><span>Team size</span></span><span class="step-line"></span><span class="step" data-step="2"><span class="step-number">02</span><span>Members</span></span><span class="step-line"></span><span class="step" data-step="3"><span class="step-number">03</span><span>Groups</span></span><span class="step-line"></span><span class="step" data-step="4"><span class="step-number">04</span><span>Spin!</span></span></nav>
+
+        <section class="setup-panel" id="sizePanel" aria-labelledby="sizeTitle">
+          <div class="step-tag">STEP 01 / 03</div><div class="panel-symbol" aria-hidden="true">👋</div><h2 id="sizeTitle">How many people<br />are on your team?</h2><p class="panel-description">Everyone gets a turn on the wheel. Start with your total headcount.</p>
+          <form id="sizeForm" novalidate><label class="field-label" for="memberCount">NUMBER OF MEMBERS</label><div class="number-field"><button type="button" class="stepper" id="memberMinus" aria-label="Remove one member">−</button><input id="memberCount" name="memberCount" type="number" inputmode="numeric" min="2" max="150" step="1" placeholder="e.g. 10" value="10" required /><button type="button" class="stepper" id="memberPlus" aria-label="Add one member">+</button></div><p class="field-hint">Add between 2 and 150 members so each group can have at least one person.</p><p id="sizeError" class="error" role="alert" hidden></p><button type="submit" class="btn btn-primary btn-wide">Continue <span class="btn-arrow">→</span></button></form>
+        </section>
+
+        <section class="setup-panel names-panel" id="namesPanel" aria-labelledby="namesTitle" hidden>
+          <div class="step-tag">STEP 02 / 03</div><div class="panel-symbol" aria-hidden="true">✍️</div><h2 id="namesTitle">Who's joining<br /><span class="gradient-text">the fun?</span></h2><p class="panel-description">Enter each member's name. Paste a list into any field to fill several names at once.</p><form id="namesForm" novalidate><div class="names-topline"><span class="field-label">TEAM MEMBERS</span><span class="count-label" id="namesCount">0 / 0 entered</span></div><div class="names-grid" id="namesGrid"></div><p id="namesError" class="error" role="alert" hidden></p><div class="form-actions"><button type="button" class="btn btn-secondary" id="namesBack">← Back</button><button type="submit" class="btn btn-primary">Continue <span class="btn-arrow">→</span></button></div></form>
+        </section>
+
+        <section class="setup-panel" id="groupsPanel" aria-labelledby="groupsTitle" hidden>
+          <div class="step-tag">STEP 03 / 03</div><div class="panel-symbol" aria-hidden="true">🧩</div><h2 id="groupsTitle">How many groups<br />do you need?</h2><p class="panel-description">We'll spread members across your groups as evenly as possible.</p><form id="groupsForm" novalidate><label class="field-label" for="groupCount">NUMBER OF GROUPS</label><div class="number-field"><button type="button" class="stepper" id="groupMinus" aria-label="Remove one group">−</button><input id="groupCount" name="groupCount" type="number" inputmode="numeric" min="2" step="1" value="2" required /><button type="button" class="stepper" id="groupPlus" aria-label="Add one group">+</button></div><p class="field-hint" id="groupHint">Choose between 2 and the number of your members.</p><div class="group-name-builder"><div class="names-topline"><span class="field-label">GROUP NAMES</span><span class="count-label" id="groupNamesCount">0 / 0 ready</span></div><p class="field-hint">Change the default names if you want. You can call them Team A, Blue Squad, Winners, or anything you like.</p><div class="group-names-grid" id="groupNamesGrid"></div></div><p id="groupsError" class="error" role="alert" hidden></p><div class="form-actions"><button type="button" class="btn btn-secondary" id="groupsBack">← Back</button><button type="submit" class="btn btn-primary" id="buildWheelButton" aria-describedby="groupHint groupsError">Build my wheel <span class="btn-arrow">↗</span></button></div></form>
+        </section>
+
+        <section class="game-panel" id="gamePanel" aria-label="Team selection wheel" hidden>
+          <div class="game-top"><div><div class="step-tag" id="gameTag">READY TO SPIN</div><h2>Time to <span class="gradient-text">mix it up!</span></h2><p class="game-subtitle" id="gameSubtitle">One click, one round. Every name finds a team.</p></div><button type="button" class="btn btn-secondary game-restart" id="gameRestart">↻ Start over</button></div>
+          <div class="stats-strip" aria-live="polite"><div><span class="stat-label">ROUND</span><strong id="roundStat">0 / 0</strong></div><div><span class="stat-label">REMAINING</span><strong id="remainingStat">0</strong></div><div><span class="stat-label">GROUPS</span><strong id="groupsStat">0</strong></div><div><span class="stat-label">ASSIGNED</span><strong id="assignedStat">0</strong></div></div>
+          <div class="game-layout"><div class="wheel-column"><div class="wheel-card"><div class="wheel-topline"><span><span class="live-dot"></span> THE LUCKY WHEEL</span><span id="wheelCounter">0 names</span></div><div class="wheel-stage" id="wheelStage"><div class="wheel-glow" aria-hidden="true"></div><div class="wheel-orbit" aria-hidden="true"></div><div class="wheel-spark wheel-spark-one" aria-hidden="true">✦</div><div class="wheel-spark wheel-spark-two" aria-hidden="true">✧</div><div class="wheel-spark wheel-spark-three" aria-hidden="true">✦</div><div class="wheel-pointer" aria-hidden="true"><span></span></div><div class="wheel-shadow" aria-hidden="true"></div><div class="wheel" id="wheel" role="img" aria-label="A colorful wheel of remaining team members"><div class="wheel-segments" id="wheelSegments"></div><div class="wheel-labels" id="wheelLabels"></div><div class="wheel-hub" aria-hidden="true"><span>✳</span></div></div><div class="wheel-empty" id="wheelEmpty" hidden><span>🎉</span><strong>Everyone's in!</strong></div></div><div class="selection-banner" id="selectionBanner" role="status" aria-live="polite"><span class="selection-banner-icon">✦</span><span id="selectionText">Your first round is ready.</span></div><button class="btn btn-primary spin-button" type="button" id="spinButton"><span class="spin-symbol">✳</span> SPIN THE WHEEL <span class="spin-mini" id="spinMini">→</span></button><p class="spin-caption" id="spinCaption">Press once to fill one spot in each group.</p></div></div>
+          <div class="groups-column"><div class="groups-heading"><div><div class="step-tag">THE RESULTS</div><h3>Your groups <span id="groupTotalLabel">(0)</span></h3></div><span class="balanced-tag">✦ BALANCED</span></div><div class="groups-list" id="groupsList" aria-live="polite"></div><div class="tip-card">💡 <span><strong>How it works:</strong> Each round randomly picks one remaining person for each group. Every name is chosen only once.</span></div></div></div><section class="results-section" id="resultsSection" hidden><div class="results-header"><div><div class="step-tag">FINAL RESULT</div><h3>Beautiful result card ready to save</h3><p class="panel-description results-description">When the spinning is complete, you'll get a polished result table with every group and member name.</p></div><div class="results-actions"><button type="button" class="btn btn-secondary" id="copyButton" hidden>⧉ Copy group results</button><button type="button" class="btn btn-primary" id="downloadImageButton" hidden>⬇ Download result image</button></div></div><div class="results-poster" id="resultsPoster" aria-label="Final grouped result preview"></div></section>
+        </section>
+      </section>
+    </main>
+    <footer><span>Made for the moments that bring teams together. ✳</span><span>SpinSplit · Random teams, good vibes.</span></footer>
+  </div>
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+</body>
+</html>
